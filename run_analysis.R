@@ -1,3 +1,10 @@
+# ReadDataFileFile function:-> for reading dataset and merging all files
+# PrefixPath:-> path for datafile.
+# The SuffixFname:->File name suffix to create the complete file name.
+#
+# This also subsets the data to extract only the measurements on the mean and standard deviation for each measurement.
+# The required columns in the subset is determined by selecting only those columns that have either "mean()" or "std()" in their names.
+# Subsetting is done early on to help reduce memory requirements.
 ReadDataFile <- function(SuffixFname, PrefixPath) {
     FilePath <- file.path(PrefixPath, paste0("y_", SuffixFname, ".txt"))
     DataY <- read.table(FilePath, header=F, col.names=c("ActivityID"))
@@ -26,6 +33,22 @@ ReadDataFile <- function(SuffixFname, PrefixPath) {
     data
 }
 
+
+# read test data set, in a folder named "test", and data file names suffixed with "test"
+ReadTestDataFile <- function() {
+    ReadDataFile("test", "test")
+}
+
+
+# read test data set, in a folder named "train", and data file names suffixed with "train"
+ReadTrainDataFile <- function() {
+    ReadDataFile("train", "train")
+}
+
+
+# Merge both train and test data sets
+# Also make the column names nicer
+mergeData <- function() {
     data <- rbind(ReadTestDataFile(), ReadTrainDataFile())
     cnames <- colnames(data)
     cnames <- gsub("\\.+mean\\.+", cnames, replacement="Mean")
@@ -73,3 +96,17 @@ if (!require("reshape2")) {
 }
 
 
+# Create the tidy data set and save it on to the named file
+createTidyDataFile <- function(fname) {
+    tidDataY <- getTidyData(getMergedLabeledData())
+    write.table(tidDataY, fname)
+}
+
+
+print("Assuming data files from the \"UCI HAR Dataset\" are availale in the current directory with the same structure as in the downloaded archive.")
+print("    Refer Data:")
+print("    archive: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip")
+print("    description: dataset: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones")
+print("Creating tidy dataset as tidy.txt...")
+createTidyDataFile("tidy.txt")
+print("Done.")
