@@ -102,11 +102,13 @@ createTidyDataFile <- function(fname) {
     write.table(tidDataY, fname)
 }
 
-
 print("Assuming data files from the \"UCI HAR Dataset\" are availale in the current directory with the same structure as in the downloaded archive.")
 print("    Refer Data:")
 print("    archive: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip")
 print("    description: dataset: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones")
 print("Creating tidy dataset as tidy.txt...")
+
 createTidyDataFile("tidy.txt")
 print("Done.")
+
+
