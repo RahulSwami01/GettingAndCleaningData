@@ -1,0 +1,14 @@
+ReadDataFile:---> function name, for reading dataset and merging all files
+PrefixPath:-> path for datafile.
+The SuffixFname:->File name suffix to create the complete file name.
+FilePath :--->kepping the path of file name.
+data_cols :--->read the column names
+subset_data_cols :---->names of subset columns
+data$ActivityID:--->append the activity id and subject id columns
+ReadTestDataFile:--->function name, read test data set, in a folder named "test", and data file names suffixed with "test"
+ReadTrainDataFile--->function name, read test data set, in a folder named "train", and data file names suffixed with "train"
+mergeData :---> function name, Merge both train and test data sets
+applyActivityLabel :---> function name, Add the activity names as another column
+getMergedLabeledData :---> function name, Combine training and test data sets and add the activity label as another column
+getTidyData :---> function  name, Create a tidy data set that has the average of each variable for each activity and each subject.
+createTidyDataFile:--->function name, Create the tidy data set and save it on to the named file
